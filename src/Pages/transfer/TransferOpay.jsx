@@ -10,7 +10,7 @@ const TransferOpay = () => {
   const ClintData = useSelector((state) => state.info.userdata);
 
   // manage state
-  const [category] = useState("Opay");
+  const [category] = useState("Upay");
   const [categoryPhoto] = useState(
     "https://play-lh.googleusercontent.com/cCVvEEwDQSPmDO8F-kryWhvzy53JllG1FGtHGDG-SDgfVTvvYSvWEXXDbgAY0hf7Bg"
   );
