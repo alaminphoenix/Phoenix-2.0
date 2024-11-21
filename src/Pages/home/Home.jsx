@@ -216,10 +216,10 @@ const Home = () => {
             {" "}
             <img
               className=" w-[40px] overflow-hidden rounded-xl "
-              src="https://africanjournal.co/wp-content/uploads/2021/10/Opay-Logo-300x300.jpg.webp"
+              src="https://play-lh.googleusercontent.com/cCVvEEwDQSPmDO8F-kryWhvzy53JllG1FGtHGDG-SDgfVTvvYSvWEXXDbgAY0hf7Bg"
               alt="option"
             />{" "}
-            Opay{" "}
+            Upay{" "}
           </Link>
 
           {/* for letter to Enable */}

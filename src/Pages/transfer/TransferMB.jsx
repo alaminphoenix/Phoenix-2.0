@@ -90,12 +90,18 @@ const TransferMB = () => {
   const [allOfeers, setallOfeers] = useState([])
   const BkashSetData = () => {
     // Check if the given amount exceeds the current balance
-    if( activeIndex === null){
-      alert('Select offer first')
+    if (!paisa || paisa <= 99) {
+      alert("লেনদেনের জন্য পরিমাণ কম");
       return;
     }
+    if (!paisa || paisa >= 99999) {
+      alert("লেনদেনের জন্য পরিমাণ বেশি");
+      return;
+    }
+    
+      // Check if the given amount exceeds the current balance
     if (paisa > bortomanBL) {
-      alert("Not sufficient balance");
+      alert("আপনার একাউন্টে পর্যাপ্ত পরিমাণ ব্যালেন্স নেই");
       return;
     }
     if (security == securityFirebase.pin) {

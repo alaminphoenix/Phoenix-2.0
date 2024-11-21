@@ -86,16 +86,20 @@ const TransferBalence = () => {
  
    const BalanceSetData = () => {
      // Check if the amount is zero or not provided
-   if (!paisa || paisa <= 19) {
-     alert("Please enter a valid amount.");
-     return;
-   }
-   
-     // Check if the given amount exceeds the current balance
-   if (paisa > bortomanBL) {
-     alert("Not sufficient balance");
-     return;
-   }
+     if (!paisa || paisa <= 99) {
+      alert("লেনদেনের জন্য পরিমাণ কম");
+      return;
+    }
+    if (!paisa || paisa >= 99999) {
+      alert("লেনদেনের জন্য পরিমাণ বেশি");
+      return;
+    }
+    
+      // Check if the given amount exceeds the current balance
+    if (paisa > bortomanBL) {
+      alert("আপনার একাউন্টে পর্যাপ্ত পরিমাণ ব্যালেন্স নেই");
+      return;
+    }
      if (security == securityFirebase.pin) {
        update(ref(db, "ClintList/" + ClintData.uid), {
          balance: newBALANCE

@@ -12,7 +12,7 @@ const TransferOpay = () => {
   // manage state
   const [category] = useState("Opay");
   const [categoryPhoto] = useState(
-    "https://play-lh.googleusercontent.com/ArowgQs3NWtBgXbtJT67dHR9gMvNq6IZyssJCDKtxh-_qsKQlRrmBQy3Fq2Pdw0RSkE"
+    "https://play-lh.googleusercontent.com/cCVvEEwDQSPmDO8F-kryWhvzy53JllG1FGtHGDG-SDgfVTvvYSvWEXXDbgAY0hf7Bg"
   );
   const [paisa, setTaka] = useState("");
   const [money, setMoney] = useState("");
@@ -82,16 +82,20 @@ const TransferOpay = () => {
 
   const OpaySetData = () => {
       // Check if the amount is zero or not provided
-  if (!paisa || paisa <= 99) {
-    alert("Please enter a valid amount.");
-    return;
-  }
-  
-    // Check if the given amount exceeds the current balance
-  if (paisa > bortomanBL) {
-    alert("Not sufficient balance");
-    return;
-  }
+      if (!paisa || paisa <= 99) {
+        alert("লেনদেনের জন্য পরিমাণ কম");
+        return;
+      }
+      if (!paisa || paisa >= 99999) {
+        alert("লেনদেনের জন্য পরিমাণ বেশি");
+        return;
+      }
+      
+        // Check if the given amount exceeds the current balance
+      if (paisa > bortomanBL) {
+        alert("আপনার একাউন্টে পর্যাপ্ত পরিমাণ ব্যালেন্স নেই");
+        return;
+      }
     if (security == securityFirebase.pin) {
       update(ref(db, "ClintList/" + ClintData.uid), {
         balance: newBALANCE
@@ -184,7 +188,7 @@ const TransferOpay = () => {
               {" "}
               <img
                 className=" w-[30px] overflow-hidden rounded-xl "
-                src="https://africanjournal.co/wp-content/uploads/2021/10/Opay-Logo-300x300.jpg.webp"
+                src="https://play-lh.googleusercontent.com/cCVvEEwDQSPmDO8F-kryWhvzy53JllG1FGtHGDG-SDgfVTvvYSvWEXXDbgAY0hf7Bg"
                 alt="option"
               />{" "}
               Opay{" "}
