@@ -86,7 +86,7 @@ const TransferBalence = () => {
  
    const BalanceSetData = () => {
      // Check if the amount is zero or not provided
-     if (!paisa || paisa <= 99) {
+     if (!paisa || paisa <= 19) {
       alert("লেনদেনের জন্য পরিমাণ কম");
       return;
     }
