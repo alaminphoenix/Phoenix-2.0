@@ -5,7 +5,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Bounce, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { userData } from "../../Slice/SliceUser";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, update } from "firebase/database";
 
 
 const Login = () => {
@@ -83,7 +83,7 @@ const Login = () => {
               navigate('/')
 
               // set data in real-time-database
-              set(ref(db, "ClintList/" + user.uid), {
+              update(ref(db, "ClintList/" + user.uid), {
                 username: user.displayName,
                 email: user.email,
                 profile_picture: user.photoURL,
