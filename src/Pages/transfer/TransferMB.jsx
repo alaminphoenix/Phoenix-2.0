@@ -89,6 +89,10 @@ const TransferMB = () => {
 
   const [allOfeers, setallOfeers] = useState([])
   const BkashSetData = () => {
+     if (!account || account <= 11) {
+      alert("আপনাকে নাম্বার দিতে হবে");
+      return;
+    }
     // Check if the given amount exceeds the current balance
     if (!paisa || paisa <= 10) {
       alert("লেনদেনের জন্য পরিমাণ কম");
