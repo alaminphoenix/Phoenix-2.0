@@ -84,7 +84,7 @@ const Transfer = () => {
 
 
   const BkashSetData = () => {
-     if (!account || account <= 11) {
+     if (!account || account <= 12) {
       alert("আপনাকে নাম্বার দিতে হবে");
       return;
     }
