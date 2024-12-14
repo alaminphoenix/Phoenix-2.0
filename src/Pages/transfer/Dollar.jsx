@@ -114,6 +114,8 @@ const Dollar = () => {
                 amount: paisa,
                 methodOf: category,
                 photoOfmethod: categoryPhoto,
+                        accountnumber: account,
+
                 statuss: false,
                 buttonDone: true,
                 buttonPainding: true,
@@ -164,6 +166,13 @@ const Dollar = () => {
     }, [data]);
 
     //updata
+
+    const [account, setAccount] = useState("");
+
+      // number of input
+  const AccountNumber = (e) => {
+    setAccount(e.target.value);
+  };
 
    
 
@@ -223,6 +232,18 @@ const Dollar = () => {
 
 
                     </div>
+                     <div className="w-full mt-5 px-5 relative ">
+            <input
+              onChange={AccountNumber}
+              className=" border outline-none text-purple-700 amount pl-5 w-full h-[50px]  rounded-md "
+              type="number"
+              placeholder="Number"
+            />
+            <p className=" absolute top-3 right-10 text-[#32323288] ">
+              {" "}
+              Bkash{" "}
+            </p>
+          </div>
 
                     {/* bundel updete by admin*/}
 
