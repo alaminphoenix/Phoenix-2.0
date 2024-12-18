@@ -6,6 +6,8 @@ import { Bounce, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { userData } from "../../Slice/SliceUser";
 import { getDatabase, ref, set, update } from "firebase/database";
+import { get, child } from "firebase/database"; // Import `get` and `child` for reading data
+
 
 
 const Login = () => {
@@ -42,78 +44,87 @@ const Login = () => {
   const navigate = useNavigate()
 
   // ===submit form Validation logic
-  const submit = (e) => {
-    e.preventDefault();
+const submit = (e) => {
+  e.preventDefault();
 
-    if (!email) {
-      setemailErorr("Please enter your email");
-    } else if (!password) {
-      setpasswordErorr("Please enter your password");
-    } else {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          dispatch(userData(user))
-          localStorage.setItem('ClintInfo' , JSON.stringify(user))
-          if(user.emailVerified == false){
-            toast('Please verify your email', {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Bounce,
-              });
-          }else{
-            toast('Login success', {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Bounce,
-              });
-              navigate('/')
+  if (!email) {
+    setemailErorr("Please enter your email");
+  } else if (!password) {
+    setpasswordErorr("Please enter your password");
+  } else {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch(userData(user));
+        localStorage.setItem("ClintInfo", JSON.stringify(user));
 
-              // set data in real-time-database
-              update(ref(db, "ClintList/" + user.uid), {
+        if (!user.emailVerified) {
+          toast("Please verify your email", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        } else {
+          toast("Login success", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          navigate("/");
+
+          // Reference to user data in the database
+          const userRef = ref(db, "ClintList/" + user.uid);
+
+          // Check if user data already exists
+          get(userRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              console.log("User data already exists. Skipping update.");
+            } else {
+              console.log("User data does not exist. Updating...");
+              // Update user data in Firebase
+              update(userRef, {
                 username: user.displayName,
                 email: user.email,
                 profile_picture: user.photoURL,
                 uid: user.uid,
               });
-              // set data in real-time-database
-          }
-          
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          console.log(errorCode)
-          if(errorCode == 'auth/invalid-credential'){
-            toast('Email or Password Error', {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Bounce,
-              });
-          }
-        });
-      
-    }
-  };
+            }
+          }).catch((error) => {
+            console.error("Error checking user data: ", error);
+          });
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        if (errorCode === "auth/invalid-credential") {
+          toast("Email or Password Error", {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
+      });
+  }
+};
+
 
   return (
     <>
