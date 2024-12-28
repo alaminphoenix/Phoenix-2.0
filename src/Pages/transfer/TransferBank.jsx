@@ -103,7 +103,7 @@ const TransferBank = () => {
         alert("লেনদেনের জন্য পরিমাণ কম");
         return;
       }
-      if (!paisa || paisa >= 2000000) {
+      if (!paisa || paisa >= 200000) {
         alert("লেনদেনের জন্য পরিমাণ বেশি");
         return;
       }
