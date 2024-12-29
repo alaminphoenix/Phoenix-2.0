@@ -94,7 +94,7 @@ const TransferBank = () => {
   const goBack = useNavigate();
 
   const bankSetData = () => {
-     if (!account || account <= 11) {
+    if (!account || account <= 11) {
       alert("আপনাকে নাম্বার দিতে হবে");
       return;
     }
@@ -103,7 +103,7 @@ const TransferBank = () => {
         alert("লেনদেনের জন্য পরিমাণ কম");
         return;
       }
-      if (!paisa || paisa >= 200000) {
+      if (!paisa || paisa >= 200001) {
         alert("লেনদেনের জন্য পরিমাণ বেশি");
         return;
       }
