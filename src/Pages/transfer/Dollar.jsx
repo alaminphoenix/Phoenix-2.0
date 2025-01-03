@@ -149,7 +149,7 @@ const Dollar = () => {
                             type="number"
                             placeholder="Number"
                         />
-                        <p className="absolute top-3 right-10 text-[#32323288]">Bkash</p>
+                        <p className="absolute top-3 right-10 text-[#32323288]"></p>
                     </div>
 
                     <div className="w-full mt-5">
