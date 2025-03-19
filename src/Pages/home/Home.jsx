@@ -360,8 +360,8 @@ const Home = () => {
                   >
                     <img className="w-10 h-10 rounded-md" src={sob?.photoOfmethod} alt="type" />
                     <p>{sob?.ReturnStatus ? '+' : '-'} {sob?.amount}.TK</p>
+                    <p>{sob?.accountnumber}</p>
                     <p>{sob?.dateOf}</p>
-                    <p>{sob?.time}</p>
                     {sob.status && <div className="w-fit h-full bg-[#ffffff80] absolute bottom-[-40px] right-3 flex justify-center items-center font-bold text-black rounded-md px-2 "> {sob?.status.PIN} </div>}
                   </div>
                 ))}
