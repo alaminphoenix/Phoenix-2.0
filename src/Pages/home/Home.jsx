@@ -129,7 +129,7 @@ const Home = () => {
 
   useEffect(()=>{
     if(!lock.pin){
-      setFlipLock(false)
+      setFlipLock(true)
     }
   },[])
 
