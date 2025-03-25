@@ -128,7 +128,7 @@ const Home = () => {
   const [lock, setlock] = useState([]);
 
   useEffect(()=>{
-    if(!lock.pin){
+    if(lock.pin){
       setFlipLock(true)
     }
   },[])
