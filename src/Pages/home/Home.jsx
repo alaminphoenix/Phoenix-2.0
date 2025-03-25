@@ -127,8 +127,16 @@ const Home = () => {
   const [or, yes] = useState([]);
   const [lock, setlock] = useState([]);
 
+  useEffect(()=>{
+    if(lock.pin){
+      setFlipLock(false)
+    }
+  },[])
+
+  console.log(lock)
+
   // pin
-  const userLockPin = Number(lock.pin);
+  const userLockPin = Number(lock?.pin);
 
   const [ScreenPin, setScreenPin] = useState();
 
@@ -158,7 +166,7 @@ const Home = () => {
       });
       yes(box);
     });
-  }, [clintInfo.uid]);
+  }, [clintInfo?.uid]);
   useEffect(() => {
     or.map((er) => setlock(er));
   }, [or]);
