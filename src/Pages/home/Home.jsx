@@ -185,9 +185,9 @@ const Home = () => {
     <>
       <div className="homePage">
         {flipLock && (
-          <div className="w-full h-screen bg-white absolute z-50 flex items-center">
+          <div className="w-full h-screen bg-[#42f2ff] absolute z-50 flex items-center">
             <div className="w-full flex flex-col items-center justify-center">
-              <p className="text-2xl mb-5 font-sans font-medium">Please enter your PIN</p>
+              <p className="text-2xl mb-5 font-sans font-medium flex items-center justify-center gap-4">Please enter your PIN <span> <img className=" w-[20px] " src="https://www.freeiconspng.com/thumbs/key-icon/black-key-symbol-icon-6.png" alt="key" /> </span> </p>
               <div className="mb-5 w-full h-[50px] border-[2px] border-[#000] rounded-xl">
                 <input
                   onChange={handleChange}
