@@ -137,7 +137,7 @@ const Home = () => {
   };
   // pin
 
-  const [flipLock, setFlipLock] = useState(false);
+  const [flipLock, setFlipLock] = useState(true);
 
   const FuntionFlipLock = () => {
     if (ScreenPin == userLockPin) {
