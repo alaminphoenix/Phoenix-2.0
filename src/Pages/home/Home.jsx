@@ -4,12 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import {
+  getAuth,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+} from "firebase/auth";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 import UserNavbar from "../../Components/User navbar/UserNavbar";
 import { FaHistory } from "react-icons/fa";
 import SliderComponent from "../../Components/User navbar/SliderComponent";
 import { clintData } from "../../Slice/SliceClint";
+import { FaUnlock } from "react-icons/fa";
 
 const Home = () => {
   // data from redux
@@ -65,27 +70,22 @@ const Home = () => {
   const handleSetPin = async () => {
     const isAuthenticated = await reauthenticateUser();
     if (isAuthenticated) {
-      await set(ref(db, 'ClintList/' + clintInfo.uid), pin);
+      await set(ref(db, "ClintList/" + clintInfo.uid), pin);
       alert("PIN set successfully!");
     } else {
       alert("Incorrect password. Please try again.");
     }
   };
 
-  // new 
+  // new
   const [one1, tow2] = useState(false);
   const flipHistory = () => {
     tow2(!one1);
   };
 
-
-
-
   // =============history page
 
   const [historyR, sethistory] = useState([]);
-
-
 
   // for history
 
@@ -113,21 +113,83 @@ const Home = () => {
 
   // for history
 
-  const dis = useDispatch()
-  const next = useNavigate()
+  const dis = useDispatch();
+  const next = useNavigate();
 
+  const Allinfo = (yes) => {
+    localStorage.setItem("clintDataStore", JSON.stringify(yes));
+    dis(clintData(yes));
+    next("/clintrequest");
+  };
 
-  const Allinfo = (yes)=>{
+  // For lock screenthe
 
-    localStorage.setItem('clintDataStore' , JSON.stringify(yes))
-    dis(clintData(yes))
-    next('/clintrequest')
-    
-  }
+  const [or, yes] = useState([]);
+  const [lock, setlock] = useState([]);
+
+  // pin
+  const userLockPin = Number(lock.pin);
+
+  const [ScreenPin, setScreenPin] = useState();
+
+  const handleChange = (e) => {
+    setScreenPin(e.target.value);
+  };
+  // pin
+
+  const [flipLock, setFlipLock] = useState(false);
+
+  const FuntionFlipLock = () => {
+    if (ScreenPin == userLockPin) {
+      setFlipLock(!flipLock);
+    } else {
+      alert("pin is wrong");
+    }
+  };
+  useEffect(() => {
+    const starCountRef = ref(db, "ClintList/");
+    onValue(starCountRef, (snapshot) => {
+      const box = [];
+      snapshot.forEach((items) => {
+        const itemData = items.val();
+        if (itemData.uid === clintInfo.uid) {
+          box.push(itemData);
+        }
+      });
+      yes(box);
+    });
+  }, [clintInfo.uid]);
+  useEffect(() => {
+    or.map((er) => setlock(er));
+  }, [or]);
+
+  // For lock screenthe
 
   return (
     <>
       <div className="homePage">
+        {flipLock && (
+          <div className=" w-full h-screen bg-white absolute z-50 flex items-center ">
+            <div className="w-full flex flex-col items-center justify-center ">
+              <p className="text-2xl mb-5 font-sans font-medium ">Please enter your PIN</p>
+              <div className=" mb-5 w-full h-[50px] border-[2px] border-[#000] rounded-xl ">
+                <input
+                  onChange={handleChange}
+                  className="w-full h-full rounded-xl text-[60px] text-center "
+                  type="password"
+                />
+              </div>
+              <button
+                onClick={FuntionFlipLock}
+                className="w-full h-[40px] rounded-xl bg-black text-[#fff] text-[30px] flex justify-center items-center "
+              >
+                {" "}
+                <FaUnlock />{" "}
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="w-full relative">
           {/* top */}
           <UserNavbar />
@@ -174,8 +236,7 @@ const Home = () => {
                 className="flex items-center justify-center text-black"
               >
                 <div className="w-[100px] flex items-center gap-1 bg-white h-[40px] rounded-full justify-center mt-20">
-                  <LuLogOut className="rotate-180" />{" "}
-                  <button>Log Out</button>
+                  <LuLogOut className="rotate-180" /> <button>Log Out</button>
                 </div>
               </div>
             </div>
@@ -224,9 +285,6 @@ const Home = () => {
 
           {/* for letter to Enable */}
 
-
-
-
           <Link className="flex flex-col items-center" to="/transferbalence">
             {" "}
             <img
@@ -236,7 +294,6 @@ const Home = () => {
             />{" "}
             Balance{" "}
           </Link>
-
 
           {/* <Link
             className="flex ml-4 flex-col items-center"
@@ -270,10 +327,6 @@ const Home = () => {
             dollar{" "}
           </Link>
 
-
-
-
-
           {/* <Link className="flex flex-col items-center" to="/transferismart">
             {" "}
             <img
@@ -292,7 +345,6 @@ const Home = () => {
             />{" "}
             Bank transfer{" "}
           </Link>
-
         </div>
         {/* option part */}
 
@@ -306,26 +358,30 @@ const Home = () => {
 
         <div className="w-full flex items-center justify-between px-3">
           {/* add money button */}
-          <Link to='/addmoney' className="bg-white flex items-center justify-center font-semibold  px-[15px]  h-[40px] transition-all rounded-lg mt-4 bottom-2 md:bottom-3 lg:bottom-10 hover:scale-95 active:scale-100">
+          <Link
+            to="/addmoney"
+            className="bg-white flex items-center justify-center font-semibold  px-[15px]  h-[40px] transition-all rounded-lg mt-4 bottom-2 md:bottom-3 lg:bottom-10 hover:scale-95 active:scale-100"
+          >
             Add Money
           </Link>
           {/* add money button */}
-
 
           <div className=" text-[30px] my-10">
             <FaHistory onClick={flipHistory} className="text-[#fff] " />
           </div>
 
-          {
-            one1 && <div className="w-full h-screen bg-[#ffffffef] absolute top-0 right-0 ">
+          {one1 && (
+            <div className="w-full h-screen bg-[#ffffffef] absolute top-0 right-0 ">
               <div className="w-full">
-                <IoChevronBackOutline onClick={flipHistory} className="text-black text-[30px] ml-2 mt-8  " />
+                <IoChevronBackOutline
+                  onClick={flipHistory}
+                  className="text-black text-[30px] ml-2 mt-8  "
+                />
               </div>
 
               <div className="w-full flex justify-center">
                 <h4 className="text-[25px] font-bold "> Recharge history </h4>
               </div>
-
 
               <div className="w-full h-[190px] overflow-y-scroll pl-4 flex flex-col gap-4 mt-5 bg-[#00000059] rounded-xl ">
                 {historyR.map((transHistory) => (
@@ -346,31 +402,41 @@ const Home = () => {
               </div>
 
               <div className="w-full flex justify-center mt-1">
-                <h4 className="text-[25px] font-bold ">  লেনদেন History </h4>
+                <h4 className="text-[25px] font-bold "> লেনদেন History </h4>
               </div>
-
 
               <div className="w-full h-[190px] pt-2 overflow-y-scroll flex flex-col gap-12 mt-5 bg-[#00000059] rounded-xl ">
-
                 {history.map((sob) => (
                   <div
-                    onClick={()=>Allinfo(sob)}
+                    onClick={() => Allinfo(sob)}
                     key={sob.key}
-                    className={`w-full relative text-[12px] md:text-[18px] h-[40px] flex items-center justify-between p-3 rounded-xl border font-bold  ${sob.status ? "bg-[#4cb81b]" : "bg-[#ff9100d1]"}`}
+                    className={`w-full relative text-[12px] md:text-[18px] h-[40px] flex items-center justify-between p-3 rounded-xl border font-bold  ${
+                      sob.status ? "bg-[#4cb81b]" : "bg-[#ff9100d1]"
+                    }`}
                   >
-                    <img className="w-10 h-10 rounded-md" src={sob?.photoOfmethod} alt="type" />
-                    <p>{sob?.ReturnStatus ? '+' : '-'} {sob?.amount}.TK</p>
+                    <img
+                      className="w-10 h-10 rounded-md"
+                      src={sob?.photoOfmethod}
+                      alt="type"
+                    />
+                    <p>
+                      {sob?.ReturnStatus ? "+" : "-"} {sob?.amount}.TK
+                    </p>
                     <p>{sob?.accountnumber}</p>
                     <p>{sob?.dateOf}</p>
-                    {sob.status && <div className="w-fit h-full bg-[#ffffff80] absolute bottom-[-40px] right-3 flex justify-center items-center font-bold text-black rounded-md px-2 "> {sob?.status.PIN} </div>}
+
+                    {sob.status && (
+                      <div className="w-fit h-full bg-[#ffffff80] absolute bottom-[-40px] right-3 flex justify-center items-center font-bold text-black rounded-md px-2 ">
+                        {" "}
+                        {sob?.status.PIN}{" "}
+                      </div>
+                    )}
                   </div>
                 ))}
-
               </div>
             </div>
-          }
+          )}
         </div>
-
       </div>
     </>
   );
