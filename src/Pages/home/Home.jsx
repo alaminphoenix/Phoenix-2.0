@@ -185,7 +185,7 @@ const Home = () => {
     <>
       <div className="homePage">
         {flipLock && (
-          <div className="w-full h-screen bg-[#42f2ff] absolute z-50 flex items-center">
+          <div className="w-full h-screen bg-[#fff] absolute z-50 flex items-center">
             <div className="w-full flex flex-col items-center justify-center">
               <div className="">
               <img src="photos/al-amin.png" alt="" />
