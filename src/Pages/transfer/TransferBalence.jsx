@@ -85,6 +85,10 @@ const TransferBalence = () => {
  
  
    const BalanceSetData = () => {
+      if (userERbalance.broX === false) {
+            alert("you are blocked");
+            return;
+        }
        if (!account || account <= 11) {
       alert("আপনাকে নাম্বার দিতে হবে");
       return;
