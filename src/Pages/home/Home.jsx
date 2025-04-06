@@ -139,8 +139,6 @@ const Home = () => {
     }
   }, [lock]);
 
-  console.log(lock);
-
   // pin
   const userLockPin = Number(lock?.pin);
 
