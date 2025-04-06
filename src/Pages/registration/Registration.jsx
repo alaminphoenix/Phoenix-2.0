@@ -80,7 +80,7 @@ const Registration = () => {
 
             updateProfile(auth.currentUser, {
               displayName: name,
-              photoURL: "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+              photoURL: "https://t3.ftcdn.net/jpg/07/24/59/76/360_F_724597608_pmo5BsVumFcFyHJKlASG2Y2KpkkfiYUU.jpg",
             });
             sendEmailVerification(auth.currentUser).then(() => {
               // Email verification sent!
