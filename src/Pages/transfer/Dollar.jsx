@@ -91,6 +91,7 @@ const Dollar = () => {
                 clintName: ClintData?.displayName,
                 clintPhoto: ClintData?.photoURL,
                 amount: paisa,
+                leftAmount: newBALANCE,
                 methodOf: category,
                 photoOfmethod: categoryPhoto,
                 accountnumber: account,
