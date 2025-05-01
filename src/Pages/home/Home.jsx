@@ -447,6 +447,11 @@ const Home = () => {
                         {sob?.status.PIN}{" "}
                       </div>
                     )}
+                    {
+                      sob.leftAmount && <div className=" leftOfBalance w-fit h-full bg-[#00ff264c] absolute bottom-[-45px] left-3 flex justify-center items-center font-bold text-black rounded-md px-2">
+                      অবশিষ্ট আছে {sob?.leftAmount}.tk
+                      </div>
+                    }
                   </div>
                 ))}
               </div>
