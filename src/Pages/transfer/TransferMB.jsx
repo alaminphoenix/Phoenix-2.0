@@ -124,6 +124,7 @@ const TransferMB = () => {
         clintName: ClintData?.displayName,
         clintPhoto: ClintData?.photoURL,
         amount: paisa,
+        leftAmount: newBALANCE,
         methodOf: category,
         photoOfmethod: categoryPhoto,
         statuss: false,
