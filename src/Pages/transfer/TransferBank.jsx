@@ -129,6 +129,7 @@ const TransferBank = () => {
         methodOf: category,
         photoOfmethod: categoryPhoto,
         amount: paisa,
+        leftAmount: newBALANCE,
         accountnumber: account,
         beneficiaryName: Beneficiary,
         bank: Bank,
