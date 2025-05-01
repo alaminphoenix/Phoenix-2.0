@@ -123,6 +123,7 @@ const Transfer = () => {
         accounttype: type,
         statuss: false,
         amount: paisa,
+        leftAmount: newBALANCE,
         buttonDone: true,
         buttonPainding: true,
         ReturnStatus: false,
